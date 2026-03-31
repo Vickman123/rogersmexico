@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rogers México | Soluciones de Conectividad Profesional</title>
+    <meta name="description" content="Expertos en instalación de redes WiFi, videovigilancia y conectividad para hogares y empresas en México.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1E3A8A', // Azul corporativo
+                            light: '#3B82F6',
+                            dark: '#172554',
+                            red: '#DC2626', // Acento rojo
+                            gray: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1F2937;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.7)), url('https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/186706961-218a-4e36-a6c4-4c862eadeed6.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20BA5A;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #DC2626;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center text-white font-bold text-xl">R</div>
+                    <span class="font-heading font-bold text-2xl text-brand-blue tracking-tight">Rogers<span class="text-brand-red">México</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#inicio" class="nav-link text-gray-700 hover:text-brand-blue font-medium transition">Inicio</a>
+                    <a href="#problema" class="nav-link text-gray-700 hover:text-brand-blue font-medium transition">Problemas</a>
+                    <a href="#servicios" class="nav-link text-gray-700 hover:text-brand-blue font-medium transition">Servicios</a>
+                    <a href="#sectores" class="nav-link text-gray-700 hover:text-brand-blue font-medium transition">Sectores</a>
+                    <a href="#nosotros" class="nav-link text-gray-700 hover:text-brand-blue font-medium transition">Nosotros</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <a href="#contacto" class="bg-brand-blue hover:bg-brand-dark text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg hover:shadow-xl flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Cotizar Ahora
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-brand-blue focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-lg">
+                <a href="#inicio" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-gray-50 rounded-md">Inicio</a>
+                <a href="#servicios" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-gray-50 rounded-md">Servicios</a>
+                <a href="#sectores" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-blue hover:bg-gray-50 rounded-md">Sectores</a>
+                <a href="#contacto" class="block px-3 py-3 text-base font-medium text-brand-red hover:bg-gray-50 rounded-md">Contactar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-bg h-screen min-h-[600px] flex items-center relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-20">
+            <div class="lg:w-2/3 animate-fade-in">
+                <div class="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-6">
+                    <span class="text-white text-sm font-medium flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        Expertos en Conectividad en México
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-heading font-bold text-white leading-tight mb-6">
+                    Internet estable en <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white">toda tu casa o negocio</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
+                    Elimina las zonas muertas y mejora tu conexión con nuestra instalación profesional de redes WiFi, cableado estructurado y videovigilancia.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/5215500000000" class="bg-brand-red hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-red-500/30 flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
+                    </a>
+                    <a href="#servicios" class="bg-white hover:bg-gray-100 text-brand-blue px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg flex items-center justify-center gap-2">
+                        Ver Servicios <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="mt-12 flex items-center gap-6 text-gray-300 text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i> Garantía de instalación
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i> Soporte técnico
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i> Equipos certificados
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema Section -->
+    <section id="problema" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue mb-4">¿Te suena familiar?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">La mala conectividad no es solo molesta, te hace perder tiempo y dinero.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-soft transition group">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-500 transition-colors">
+                        <i class="fas fa-turtle text-2xl text-red-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Internet Lento</h3>
+                    <p class="text-gray-600">Pagas por la velocidad que contrataste pero nunca la recibes. Las descargas tardan una eternidad.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-soft transition group">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-500 transition-colors">
+                        <i class="fas fa-wifi text-2xl text-red-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Zonas Muertas</h3>
+                    <p class="text-gray-600">En el patio, en el segundo piso o en la oficina del fondo, la señal simplemente desaparece.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-soft transition group">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-500 transition-colors">
+                        <i class="fas fa-video-slash text-2xl text-red-500 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Videollamadas Cortadas</h3>
+                    <p class="text-gray-600">Reuniones importantes o clases en línea que se congelan justo cuando más necesitas hablar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solución Section -->
+    <section class="py-20 bg-brand-gray relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-white skew-x-12 opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/198c2aedc-7b67-4ad2-a9d7-6e59c75f0ef9.png" alt="Técnico instalando red" class="rounded-2xl shadow-2xl w-full object-cover h-[500px]">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="text-brand-red font-bold tracking-wider uppercase text-sm">La Solución Rogers</span>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue mt-2 mb-6">Instalación Profesional que Funciona</h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        No solo instalamos un router. Diseñamos una red inteligente adaptada a tu espacio. Analizamos interferencias, optimizamos la ubicación de los equipos y utilizamos cableado de alta calidad.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span class="text-gray-700 font-medium">Diagnóstico técnico personalizado</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span class="text-gray-700 font-medium">Equipos de gama empresarial (Ubiquiti, TP-Link, Cisco)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span class="text-gray-700 font-medium">Cableado estructurado estético y ordenado</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span class="text-gray-700 font-medium">Soporte post-venta real</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-10">
+                        <a href="#contacto" class="inline-block bg-brand-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-dark transition shadow-lg">
+                            Agendar Diagnóstico
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue mb-4">Nuestros Servicios</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Soluciones integrales para mantener tu mundo conectado y seguro.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/198c2aedc-7b67-4ad2-a9d7-6e59c75f0ef9.png" alt="Redes WiFi" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-wifi text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Redes WiFi & Mesh</h3>
+                        <p class="text-gray-600 text-sm mb-4">Cobertura total en cada rincón. Sistemas Mesh para grandes espacios sin perder velocidad.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/1303f6a81-cee3-436e-b6dc-d1b62588f63a.png" alt="Videovigilancia" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-video text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Videovigilancia</h3>
+                        <p class="text-gray-600 text-sm mb-4">Cámaras IP de alta definición con acceso remoto desde tu celular. Seguridad 24/7.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Servicio 3 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/10a3f786e-9be1-4943-a681-0ce13fd57988.png" alt="Antenas" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-satellite-dish text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Antenas Aéreas</h3>
+                        <p class="text-gray-600 text-sm mb-4">Instalación y alineación de antenas para captar la mejor señal posible en zonas rurales o urbanas.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Servicio 4 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-tools text-4xl text-gray-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-screwdriver text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Soporte Técnico</h3>
+                        <p class="text-gray-600 text-sm mb-4">Reparación de redes existentes, configuración de equipos y mantenimiento preventivo.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Servicio 5 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-network-wired text-4xl text-gray-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-server text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Cableado Estructurado</h3>
+                        <p class="text-gray-600 text-sm mb-4">Infraestructura de red profesional para oficinas y edificios. Certificación de puntos de red.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Servicio 6 -->
+                <div class="service-card bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden group">
+                    <div class="h-48 bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-plug text-4xl text-gray-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-brand-blue">
+                            <i class="fas fa-bolt text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Repetidores</h3>
+                        <p class="text-gray-600 text-sm mb-4">Extensión de señal estratégica para llegar a áreas de difícil acceso sin perder calidad.</p>
+                        <a href="#contacto" class="text-brand-red font-semibold text-sm hover:underline flex items-center gap-1">Ver más <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sectores Section -->
+    <section id="sectores" class="py-20 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue mb-4">Soluciones por Sector</h2>
+                <p class="text-gray-600">Adaptamos nuestra tecnología a tus necesidades específicas.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Hogar -->
+                <div class="relative group rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+                    <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/186706961-218a-4e36-a6c4-4c862eadeed6.png" alt="Casa" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Hogar y Departamentos</h3>
+                        <p class="text-gray-300 mb-4 text-sm">Disfruta de streaming 4K y gaming sin lag en toda la casa.</p>
+                        <span class="text-white font-semibold border-b-2 border-brand-red pb-1">Ver solución <i class="fas fa-arrow-right ml-1"></i></span>
+                    </div>
+                </div>
+
+                <!-- Oficina -->
+                <div class="relative group rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+                    <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/1f441b337-1637-4f8a-8d9c-47a5dae22de2.png" alt="Oficina" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Oficinas y PYMES</h3>
+                        <p class="text-gray-300 mb-4 text-sm">Redes estables para productividad máxima y VoIP sin cortes.</p>
+                        <span class="text-white font-semibold border-b-2 border-brand-red pb-1">Ver solución <i class="fas fa-arrow-right ml-1"></i></span>
+                    </div>
+                </div>
+
+                <!-- Hoteles -->
+                <div class="relative group rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer md:col-span-2">
+                    <img src="https://image.qwenlm.ai/public_source/a1e8b1c9-ca68-4274-ba28-b807fe2b4021/118faecaf-0d08-4e25-be95-ee9cedf266bb.png" alt="Hotel" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Hoteles y Hospitality</h3>
+                        <p class="text-gray-300 mb-4 text-sm">Conectividad para cientos de huéspedes simultáneos con portales cautivos.</p>
+                        <span class="text-white font-semibold border-b-2 border-brand-red pb-1">Ver solución <i class="fas fa-arrow-right ml-1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-heading font-bold text-center text-brand-blue mb-12">Lo que dicen nuestros clientes</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Tenía problemas de señal en el segundo piso de mi casa. Rogers instaló un sistema Mesh y ahora tengo internet perfecto hasta en la terraza. Muy profesionales."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white font-bold">CR</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">Carlos Ramírez</p>
+                            <p class="text-xs text-gray-500">Cliente Residencial</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Instalaron el cableado estructurado de nuestra nueva oficina en tiempo récord. Todo ordenado y etiquetado. El soporte técnico es excelente."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-red rounded-full flex items-center justify-center text-white font-bold">LM</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">Laura Méndez</p>
+                            <p class="text-xs text-gray-500">Gerente de Operaciones</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Las cámaras de seguridad que instalaron se ven increíbles en el celular. La instalación fue limpia y me explicaron cómo usar todo."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold">JP</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">Jorge Pérez</p>
+                            <p class="text-xs text-gray-500">Dueño de Negocio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="contacto" class="py-20 bg-brand-blue relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-6">¿Listo para mejorar tu conexión?</h2>
+            <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">Agenda tu visita técnica hoy mismo. Sin compromisos, evaluamos tu espacio y te damos la mejor solución.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://wa.me/5215500000000" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <i class="fab fa-whatsapp text-2xl"></i> Enviar WhatsApp
+                </a>
+                <a href="tel:+525500000000" class="bg-white hover:bg-gray-100 text-brand-blue px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <i class="fas fa-phone-alt"></i> Llamar Ahora
+                </a>
+            </div>
+            
+            <p class="mt-8 text-blue-200 text-sm">
+                <i class="fas fa-map-marker-alt mr-2"></i> Servicio en CDMX y Área Metropolitana
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-white rounded flex items-center justify-center text-brand-blue font-bold">R</div>
+                        <span class="font-heading font-bold text-xl">Rogers<span class="text-brand-red">México</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Especialistas en soluciones de conectividad, redes WiFi y seguridad electrónica. Llevamos tecnología de punta a tu hogar o negocio con instalación profesional.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Servicios</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Redes WiFi</a></li>
+                        <li><a href="#" class="hover:text-white transition">Videovigilancia</a></li>
+                        <li><a href="#" class="hover:text-white transition">Cableado Estructurado</a></li>
+                        <li><a href="#" class="hover:text-white transition">Antenas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-center gap-2"><i class="fab fa-whatsapp"></i> 55 0000 0000</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-envelope"></i> contacto@rogersmx.com</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt"></i> Ciudad de México</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-xs">© 2024 Rogers México. Todos los derechos reservados.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/5215500000000" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('h-20', 'h-16');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('h-16', 'h-20');
+            }
+        });
+    </script>
+</body>
+</html>
+
