@@ -7,13 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Placeholder for icons if needed, using SVGs mostly -->
     
     <style>
         :root {
             --blue-primary: #0B3D91;
             --blue-secondary: #1E5BBF;
             --blue-accent: #4A8BFF;
+            --blue-dark: #051e4b;
+            --blue-glow: #7eb3ff;
             --red-primary: #E10600;
             --red-accent: #FF3B30;
             --white: #FFFFFF;
@@ -29,11 +30,7 @@
             --radius-lg: 1rem;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font-main);
@@ -47,7 +44,6 @@
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
 
-        /* Utilities */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -95,6 +91,20 @@
         
         .btn-secondary:hover {
             background-color: var(--blue-primary);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .section-title {
@@ -163,19 +173,30 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--blue-primary);
+            background: none;
+            border: none;
+            padding: 0.5rem;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
-            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-secondary) 100%);
-            color: var(--white);
-            padding: 6rem 0;
             position: relative;
-            overflow: hidden;
-            min-height: 80vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            padding-top: 80px;
+            background: var(--blue-dark);
+            overflow: hidden;
+        }
+
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .hero-bg {
@@ -185,40 +206,79 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.2;
+            opacity: 0.4;
             z-index: 0;
+            mix-blend-mode: overlay;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(11, 61, 145, 0.75) 0%, rgba(5, 30, 75, 0.92) 100%);
+            z-index: 2;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
-            max-width: 800px;
+            z-index: 3;
+            max-width: 900px;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            color: var(--blue-glow);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
+            font-size: 1.35rem;
+            margin-bottom: 3rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 650px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
+        .gradient-text {
+            background: linear-gradient(135deg, var(--white) 0%, var(--blue-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item h4 { font-size: 2rem; font-weight: 700; color: var(--blue-glow); }
+        .stat-item span { font-size: 0.9rem; opacity: 0.7; }
 
         /* Problems Section */
-        .problems {
-            padding: 5rem 0;
-            background-color: var(--white);
-        }
+        .problems { padding: 5rem 0; background-color: var(--white); }
 
         .problems-grid {
             display: grid;
@@ -233,9 +293,7 @@
             transition: transform 0.3s;
         }
 
-        .problem-card:hover {
-            transform: translateY(-5px);
-        }
+        .problem-card:hover { transform: translateY(-5px); }
 
         .problem-icon {
             width: 64px;
@@ -257,10 +315,7 @@
         }
 
         /* Services Section */
-        .services {
-            padding: 5rem 0;
-            background-color: var(--gray-light);
-        }
+        .services { padding: 5rem 0; background-color: var(--gray-light); }
 
         .services-grid {
             display: grid;
@@ -287,9 +342,7 @@
             object-fit: cover;
         }
 
-        .service-content {
-            padding: 2rem;
-        }
+        .service-content { padding: 2rem; }
 
         .service-content h3 {
             font-size: 1.5rem;
@@ -303,10 +356,7 @@
         }
 
         /* Dynamic Section (Tabs) */
-        .dynamic-section {
-            padding: 5rem 0;
-            background-color: var(--white);
-        }
+        .dynamic-section { padding: 5rem 0; background-color: var(--white); }
 
         .tabs-container {
             display: flex;
@@ -342,9 +392,7 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .tab-content.active {
-            display: grid;
-        }
+        .tab-content.active { display: grid; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -415,10 +463,7 @@
         }
 
         /* Benefits */
-        .benefits {
-            padding: 5rem 0;
-            background-color: var(--gray-light);
-        }
+        .benefits { padding: 5rem 0; background-color: var(--gray-light); }
 
         .benefits-list {
             display: grid;
@@ -448,7 +493,7 @@
         /* Final CTA */
         .final-cta {
             padding: 6rem 0;
-            background-color: #0f2a5c; /* Darker than primary for contrast */
+            background-color: #0f2a5c;
             text-align: center;
             color: var(--white);
         }
@@ -483,9 +528,7 @@
             color: #9CA3AF;
         }
         
-        .footer-col ul li a:hover {
-            color: var(--white);
-        }
+        .footer-col ul li a:hover { color: var(--white); }
 
         .copyright {
             text-align: center;
@@ -514,18 +557,23 @@
             transition: transform 0.3s;
         }
 
-        .whatsapp-float:hover {
-            transform: scale(1.1);
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* Animación flotante para badge */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
+        .animate-float { animation: float 3s ease-in-out infinite; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.8rem; }
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
             .tab-content { grid-template-columns: 1fr; gap: 2rem; }
             .tab-img-container { height: 250px; order: -1; }
-            .hero-buttons { flex-direction: column; }
+            .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
             .btn { width: 100%; }
         }
     </style>
@@ -534,372 +582,540 @@
 
 <!-- Header -->
 <header>
-    <div class="container nav-container py-2">
-        <div class="flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-<img src="Logo.png" class="h-8 md:h-10 object-contain">
+    <div class="container nav-container">
+        <div class="logo" style="cursor: pointer;" onclick="window.scrollTo(0,0)">
+            <img src="Logo.png" alt="Rogers México" style="height: 70px; object-fit: contain;">
         </div>
 
         <nav class="nav-links">
             <a href="#problemas">Problemas</a>
             <a href="#servicios">Servicios</a>
             <a href="#soluciones">Soluciones</a>
-            <a href="#contacto" class="btn btn-primary" style="padding: 0.4rem 1.2rem; color: #FFFFFF;">
-                Contacto
-            </a>
+            <a href="#contacto" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Contacto</a>
         </nav>
 
-        <div class="mobile-menu-btn">☰</div>
+        <button class="mobile-menu-btn" aria-label="Menú">☰</button>
     </div>
 </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1d25b9f9e-f47a-4552-9366-198ea993daa9.png" alt="Redes tecnológicas" class="hero-bg">
-        <div class="container hero-content">
-            <h1>Internet estable y soluciones tecnológicas que realmente funcionan</h1>
-            <p>Instalación profesional de WiFi, videovigilancia y redes en CDMX. Atención en horas, no días.</p>
-            <div class="hero-buttons">
-                <a href="https://wa.me/525577448384" class="btn btn-primary">Solicitar instalación</a>
-                <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+<!-- Hero Section -->
+<section class="hero">
+    <img src="https://image.qwenlm.ai/public_source/75c3743a-7373-4424-81a4-33e843829060/178e969b1-0302-427a-a9a6-775b5f45aef3.png" alt="Fondo Tecnológico" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <canvas id="network-canvas"></canvas>
+    
+    <div class="container hero-content">
+        <div class="hero-badge animate-float">Tecnología 2026 Disponible</div>
+        <h1>Conectividad sin límites.<br><span class="gradient-text">Seguridad total.</span></h1>
+        <p>Implementamos infraestructura de red de última generación y sistemas de videovigilancia inteligentes para hogares y empresas en CDMX.</p>
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="https://wa.me/525577448384" class="btn btn-primary">
+                Agendar Diagnóstico
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px; vertical-align: middle;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#servicios" class="btn btn-glass">Ver Servicios</a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <h4>+500</h4>
+                <span>Instalaciones</span>
+            </div>
+            <div class="stat-item">
+                <h4>99.9%</h4>
+                <span>Uptime Garantizado</span>
+            </div>
+            <div class="stat-item">
+                <h4>24/7</h4>
+                <span>Soporte Técnico</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Problems Section -->
-    <section id="problemas" class="problems">
-        <div class="container">
-            <h2 class="section-title">¿Te identificas con esto?</h2>
-            <p class="section-subtitle">Sabemos lo frustrante que es la mala conectividad. Resolvemos estos problemas diariamente.</p>
-            
-            <div class="problems-grid">
-                <div class="problem-card">
-                    <div class="problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-                    </div>
-                    <h3>Internet lento</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Velocidades que no coinciden con lo que pagas.</p>
+<!-- Problems Section -->
+<section id="problemas" class="problems">
+    <div class="container">
+        <h2 class="section-title">¿Te identificas con esto?</h2>
+        <p class="section-subtitle">Sabemos lo frustrante que es la mala conectividad. Resolvemos estos problemas diariamente.</p>
+        
+        <div class="problems-grid">
+            <div class="problem-card">
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-                    </div>
-                    <h3>Zonas muertas</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Habitaciones o pisos sin señal WiFi.</p>
+                <h3>Internet lento</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Velocidades que no coinciden con lo que pagas.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    </div>
-                    <h3>Videollamadas inestables</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Cortes constantes en reuniones importantes.</p>
+                <h3>Zonas muertas</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Habitaciones o pisos sin señal WiFi.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    </div>
-                    <h3>Falta de control</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Inseguridad en tu negocio o hogar.</p>
+                <h3>Videollamadas inestables</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Cortes constantes en reuniones importantes.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 </div>
+                <h3>Falta de control</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Inseguridad en tu negocio o hogar.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="servicios" class="services">
-        <div class="container">
-            <h2 class="section-title">Nuestras Soluciones</h2>
-            <p class="section-subtitle">Tecnología de punta instalada por expertos certificados.</p>
-            
-            <div class="services-grid">
-                <!-- Card 1 -->
-                <div class="service-card">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1f51aeb2e-a919-48c1-8ca2-49d684150c75.png" alt="WiFi y Redes" class="service-img">
-                    <div class="service-content">
-                        <h3>WiFi y Redes</h3>
-                        <p>Sistemas Mesh y puntos de acceso profesionales para cobertura total en cada rincón de tu propiedad.</p>
-                        <a href="https://wa.me/525577448384?text=Me%20interesa%20WiFi%20y%20Redes" class="btn btn-secondary">Cotizar WiFi</a>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="service-card">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/168d4c2d0-1eda-448a-ab33-5a15530010c1.png" alt="Videovigilancia" class="service-img">
-                    <div class="service-content">
-                        <h3>Videovigilancia</h3>
-                        <p>Cámaras IP de alta definición con acceso remoto desde tu celular. Monitoreo 24/7.</p>
-                        <a href="https://wa.me/525577448384?text=Me%20interesa%20Videovigilancia" class="btn btn-secondary">Cotizar Cámaras</a>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="service-card">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1ef7c0616-e10d-4c7a-b46b-7664fb6b89a5.png" alt="Antena Aérea" class="service-img">
-                    <div class="service-content">
-                        <h3>Enlaces Aéreos</h3>
-                        <p>Conectividad de alta velocidad mediante antenas punto a punto para zonas sin fibra óptica.</p>
-                        <a href="https://wa.me/525577448384?text=Me%20interesa%20Antena%20Aérea" class="btn btn-secondary">Consultar Viabilidad</a>
-                    </div>
+<!-- Services Section -->
+<section id="servicios" class="services">
+    <div class="container">
+        <h2 class="section-title">Nuestras Soluciones</h2>
+        <p class="section-subtitle">Tecnología de punta instalada por expertos certificados.</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1f51aeb2e-a919-48c1-8ca2-49d684150c75.png" alt="WiFi y Redes" class="service-img">
+                <div class="service-content">
+                    <h3>WiFi y Redes</h3>
+                    <p>Sistemas Mesh y puntos de acceso profesionales para cobertura total en cada rincón de tu propiedad.</p>
+                    <a href="https://wa.me/525577448384?text=Me%20interesa%20WiFi%20y%20Redes" class="btn btn-secondary">Cotizar WiFi</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Dynamic Section -->
-    <section id="soluciones" class="dynamic-section">
-        <div class="container">
-            <h2 class="section-title">Soluciones a tu medida</h2>
-            <p class="section-subtitle">Selecciona tu tipo de propiedad para ver cómo podemos ayudarte.</p>
-
-            <div class="tabs-container">
-                <button class="tab-btn active" onclick="openTab(event, 'casa')">Casa</button>
-                <button class="tab-btn" onclick="openTab(event, 'deptos')">Departamentos</button>
-                <button class="tab-btn" onclick="openTab(event, 'hoteles')">Hoteles</button>
-                <button class="tab-btn" onclick="openTab(event, 'oficina')">Oficina</button>
-            </div>
-
-            <!-- Tab Content: Casa -->
-            <div id="casa" class="tab-content active">
-                <div class="tab-text">
-                    <span class="problem-label">Problema Común</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Señal débil en el jardín, segundo piso o habitaciones lejanas al router principal.</p>
-                    
-                    <span class="solution-label">Nuestra Solución Rogers</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Instalación de sistema Mesh inteligente que crea una red única y potente en toda la casa, sin cambios de nombre ni caídas.</p>
-                    
-                    <a href="https://wa.me/525577448384?text=Quiero%20mejorar%20el%20WiFi%20de%20mi%20casa" class="btn btn-primary">Mejorar mi WiFi en Casa</a>
-                </div>
-                <div class="tab-img-container">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/119594f8f-0782-482c-9876-40accee63b3c.png" alt="Familia usando WiFi">
+            <div class="service-card">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/168d4c2d0-1eda-448a-ab33-5a15530010c1.png" alt="Videovigilancia" class="service-img">
+                <div class="service-content">
+                    <h3>Videovigilancia</h3>
+                    <p>Cámaras IP de alta definición con acceso remoto desde tu celular. Monitoreo 24/7.</p>
+                    <a href="https://wa.me/525577448384?text=Me%20interesa%20Videovigilancia" class="btn btn-secondary">Cotizar Cámaras</a>
                 </div>
             </div>
-
-            <!-- Tab Content: Deptos -->
-            <div id="deptos" class="tab-content">
-                <div class="tab-text">
-                    <span class="problem-label">Problema Común</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Interferencia con vecinos, muros de concreto gruesos y mala distribución del señal.</p>
-                    
-                    <span class="solution-label">Nuestra Solución Rogers</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Puntos de acceso de alto rendimiento diseñados para penetrar muros y evitar interferencias de canales vecinos.</p>
-                    
-                    <a href="https://wa.me/525577448384?text=Quiero%20mejorar%20el%20WiFi%20de%20mi%20departamento" class="btn btn-primary">Optimizar Departamento</a>
-                </div>
-                <div class="tab-img-container">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/165a86d09-7c12-448e-b92e-5d865a7e1db0.png" alt="Pasillo departamento">
-                </div>
-            </div>
-
-            <!-- Tab Content: Hoteles -->
-            <div id="hoteles" class="tab-content">
-                <div class="tab-text">
-                    <span class="problem-label">Problema Común</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Huéspedes insatisfechos por internet lento, incapacidad de soportar múltiples dispositivos.</p>
-                    
-                    <span class="solution-label">Nuestra Solución Rogers</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Redes empresariales escalables con portal cautivo (login para huéspedes) y balanceo de carga automático.</p>
-                    
-                    <a href="https://wa.me/525577448384?text=Solución%20WiFi%20para%20Hotel" class="btn btn-primary">Cotizar para Hotel</a>
-                </div>
-                <div class="tab-img-container">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1e514edaf-be7a-4ccc-9d5f-001cc100f3af.png" alt="Lobby Hotel">
-                </div>
-            </div>
-
-            <!-- Tab Content: Oficina -->
-            <div id="oficina" class="tab-content">
-                <div class="tab-text">
-                    <span class="problem-label">Problema Común</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Caídas de servidor, lentitud en la nube, videollamadas corporativas congeladas.</p>
-                    
-                    <span class="solution-label">Nuestra Solución Rogers</span>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Infraestructura de red cableada y wireless de grado empresarial. Priorización de tráfico crítico y seguridad perimetral.</p>
-                    
-                    <a href="https://wa.me/525577448384?text=Solución%20WiFi%20para%20Oficina" class="btn btn-primary">Mejorar Red Oficina</a>
-                </div>
-                <div class="tab-img-container">
-                    <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/184d0a1b0-ee87-4a4c-b538-43c3d0e62481.png" alt="Oficina servidores">
+            <div class="service-card">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1ef7c0616-e10d-4c7a-b46b-7664fb6b89a5.png" alt="Antena Aérea" class="service-img">
+                <div class="service-content">
+                    <h3>Enlaces Aéreos</h3>
+                    <p>Conectividad de alta velocidad mediante antenas punto a punto para zonas sin fibra óptica.</p>
+                    <a href="https://wa.me/525577448384?text=Me%20interesa%20Antena%20Aérea" class="btn btn-secondary">Consultar Viabilidad</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Differentiators -->
-    <section class="differentiators">
-        <div class="container">
-            <div class="diff-grid">
-                <div class="diff-item">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <h4>Atención en Horas</h4>
-                    <p style="opacity: 0.8;">Respondemos y agendamos rápido.</p>
+<!-- Dynamic Section -->
+<section id="soluciones" class="dynamic-section">
+    <div class="container">
+        <h2 class="section-title">Soluciones a tu medida</h2>
+        <p class="section-subtitle">Selecciona tu tipo de propiedad para ver cómo podemos ayudarte.</p>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab(event, 'casa')">Casa</button>
+            <button class="tab-btn" onclick="openTab(event, 'deptos')">Departamentos</button>
+            <button class="tab-btn" onclick="openTab(event, 'hoteles')">Hoteles</button>
+            <button class="tab-btn" onclick="openTab(event, 'oficina')">Oficina</button>
+        </div>
+
+        <div id="casa" class="tab-content active">
+            <div class="tab-text">
+                <span class="problem-label">Problema Común</span>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Señal débil en el jardín, segundo piso o habitaciones lejanas al router principal.</p>
+                <span class="solution-label">Nuestra Solución Rogers</span>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Instalación de sistema Mesh inteligente que crea una red única y potente en toda la casa, sin cambios de nombre ni caídas.</p>
+                <a href="https://wa.me/525577448384?text=Quiero%20mejorar%20el%20WiFi%20de%20mi%20casa" class="btn btn-primary">Mejorar mi WiFi en Casa</a>
+            </div>
+            <div class="tab-img-container">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/119594f8f-0782-482c-9876-40accee63b3c.png" alt="Familia usando WiFi">
+            </div>
+        </div>
+
+        <div id="deptos" class="tab-content">
+            <div class="tab-text">
+                <span class="problem-label">Problema Común</span>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Interferencia con vecinos, muros de concreto gruesos y mala distribución del señal.</p>
+                <span class="solution-label">Nuestra Solución Rogers</span>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Puntos de acceso de alto rendimiento diseñados para penetrar muros y evitar interferencias de canales vecinos.</p>
+                <a href="https://wa.me/525577448384?text=Quiero%20mejorar%20el%20WiFi%20de%20mi%20departamento" class="btn btn-primary">Optimizar Departamento</a>
+            </div>
+            <div class="tab-img-container">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/165a86d09-7c12-448e-b92e-5d865a7e1db0.png" alt="Pasillo departamento">
+            </div>
+        </div>
+
+        <div id="hoteles" class="tab-content">
+            <div class="tab-text">
+                <span class="problem-label">Problema Común</span>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Huéspedes insatisfechos por internet lento, incapacidad de soportar múltiples dispositivos.</p>
+                <span class="solution-label">Nuestra Solución Rogers</span>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Redes empresariales escalables con portal cautivo (login para huéspedes) y balanceo de carga automático.</p>
+                <a href="https://wa.me/525577448384?text=Solución%20WiFi%20para%20Hotel" class="btn btn-primary">Cotizar para Hotel</a>
+            </div>
+            <div class="tab-img-container">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/1e514edaf-be7a-4ccc-9d5f-001cc100f3af.png" alt="Lobby Hotel">
+            </div>
+        </div>
+
+        <div id="oficina" class="tab-content">
+            <div class="tab-text">
+                <span class="problem-label">Problema Común</span>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Caídas de servidor, lentitud en la nube, videollamadas corporativas congeladas.</p>
+                <span class="solution-label">Nuestra Solución Rogers</span>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Infraestructura de red cableada y wireless de grado empresarial. Priorización de tráfico crítico y seguridad perimetral.</p>
+                <a href="https://wa.me/525577448384?text=Solución%20WiFi%20para%20Oficina" class="btn btn-primary">Mejorar Red Oficina</a>
+            </div>
+            <div class="tab-img-container">
+                <img src="https://image.qwenlm.ai/public_source/2239c3aa-7ae3-43f8-916f-b36c0d0a07ee/184d0a1b0-ee87-4a4c-b538-43c3d0e62481.png" alt="Oficina servidores">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Differentiators -->
+<section class="differentiators">
+    <div class="container">
+        <div class="diff-grid">
+            <div class="diff-item">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <h4>Atención en Horas</h4>
+                <p style="opacity: 0.8;">Respondemos y agendamos rápido.</p>
+            </div>
+            <div class="diff-item">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <h4>Sin Anticipos</h4>
+                <p style="opacity: 0.8;">Pagas contra entrega y satisfacción.</p>
+            </div>
+            <div class="diff-item">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <h4>Garantía Total</h4>
+                <p style="opacity: 0.8;">Respaldamos nuestra instalación.</p>
+            </div>
+            <div class="diff-item">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                <h4>Instalación Pro</h4>
+                <p style="opacity: 0.8;">Técnicos certificados y equipo de punta.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits -->
+<section class="benefits">
+    <div class="container">
+        <h2 class="section-title">¿Por qué elegir Rogers México?</h2>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Cobertura Total</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Eliminamos las zonas muertas para que tengas señal en cada metro cuadrado.</p>
                 </div>
-                <div class="diff-item">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <h4>Sin Anticipos</h4>
-                    <p style="opacity: 0.8;">Pagas contra entrega y satisfacción.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Internet Estable</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Adiós a las reconexiones constantes. Navegación fluida y continua.</p>
                 </div>
-                <div class="diff-item">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    <h4>Garantía Total</h4>
-                    <p style="opacity: 0.8;">Respaldamos nuestra instalación.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Control Total</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Gestiona quién se conecta a tu red y monitorea tu propiedad desde cualquier lugar.</p>
                 </div>
-                <div class="diff-item">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue-accent); margin-bottom: 1rem;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                    <h4>Instalación Pro</h4>
-                    <p style="opacity: 0.8;">Técnicos certificados y equipo de punta.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem;">Mayor Productividad</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">En oficina o home office, una buena red significa menos tiempos de espera y más trabajo realizado.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Benefits -->
-    <section class="benefits">
-        <div class="container">
-            <h2 class="section-title">¿Por qué elegir Rogers México?</h2>
-            <div class="benefits-list">
-                <div class="benefit-item">
-                    <div class="check-icon">✓</div>
-                    <div>
-                        <h4 style="margin-bottom: 0.5rem;">Cobertura Total</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Eliminamos las zonas muertas para que tengas señal en cada metro cuadrado.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="check-icon">✓</div>
-                    <div>
-                        <h4 style="margin-bottom: 0.5rem;">Internet Estable</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Adiós a las reconexiones constantes. Navegación fluida y continua.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="check-icon">✓</div>
-                    <div>
-                        <h4 style="margin-bottom: 0.5rem;">Control Total</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Gestiona quién se conecta a tu red y monitorea tu propiedad desde cualquier lugar.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="check-icon">✓</div>
-                    <div>
-                        <h4 style="margin-bottom: 0.5rem;">Mayor Productividad</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem;">En oficina o home office, una buena red significa menos tiempos de espera y más trabajo realizado.</p>
-                    </div>
+<!-- Final CTA -->
+<section id="contacto" class="final-cta">
+    <div class="container">
+        <h2>Agenda tu instalación hoy mismo</h2>
+        <p style="margin-bottom: 2rem; font-size: 1.2rem; opacity: 0.9;">No dejes que un internet lento frene tu día. Soluciónalo ahora.</p>
+        <a href="https://wa.me/525577448384" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.2rem;">Contactar por WhatsApp</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Rogers México</h4>
+                <p style="color: #9CA3AF; margin-bottom: 1rem;">Expertos en conectividad y seguridad electrónica en Ciudad de México.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: white;">FB</a>
+                    <a href="#" style="color: white;">IG</a>
+                    <a href="#" style="color: white;">LI</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section id="contacto" class="final-cta">
-        <div class="container">
-            <h2>Agenda tu instalación hoy mismo</h2>
-            <p style="margin-bottom: 2rem; font-size: 1.2rem; opacity: 0.9;">No dejes que un internet lento frene tu día. Soluciónalo ahora.</p>
-            <a href="https://wa.me/525577448384" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.2rem;">Contactar por WhatsApp</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Rogers México</h4>
-                    <p style="color: #9CA3AF; margin-bottom: 1rem;">Expertos en conectividad y seguridad electrónica en Ciudad de México.</p>
-                    <div style="display: flex; gap: 1rem;">
-                        <!-- Social Icons Placeholders -->
-                        <a href="#" style="color: white;">FB</a>
-                        <a href="#" style="color: white;">IG</a>
-                        <a href="#" style="color: white;">LI</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Servicios</h4>
-                    <ul>
-                        <li><a href="#">Instalación WiFi</a></li>
-                        <li><a href="#">Videovigilancia</a></li>
-                        <li><a href="#">Redes Empresariales</a></li>
-                        <li><a href="#">Enlaces Aéreos</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contacto</h4>
-                    <ul>
-                        <li>📍 Ciudad de México, CDMX</li>
-                        <li>📞 55 1234 5678</li>
-                        <li>✉️ contacto@rogersmexico.com</li>
-                        <li>⏰ Lun - Vie: 9am - 7pm</li>
-                    </ul>
-                </div>
+            <div class="footer-col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#">Instalación WiFi</a></li>
+                    <li><a href="#">Videovigilancia</a></li>
+                    <li><a href="#">Redes Empresariales</a></li>
+                    <li><a href="#">Enlaces Aéreos</a></li>
+                </ul>
             </div>
-            <div class="copyright">
-                &copy; 2026 Rogers México. Todos los derechos reservados.
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li>📍 Ciudad de México, CDMX</li>
+                    <li>📞 55 1234 5678</li>
+                    <li>✉️ contacto@rogersmexico.com</li>
+                    <li>⏰ Lun - Vie: 9am - 7pm</li>
+                </ul>
             </div>
         </div>
-    </footer>
+        <div class="copyright">
+            &copy; 2026 Rogers México. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
 
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/525577448384" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382C17.119 14.205 15.396 13.353 15.074 13.235C14.752 13.117 14.516 13.058 14.279 13.412C14.043 13.766 13.366 14.561 13.16 14.797C12.953 15.033 12.746 15.063 12.392 14.886C12.038 14.709 10.909 14.337 9.56599 13.139C8.50499 12.193 7.79199 11.028 7.58499 10.674C7.37799 10.32 7.56399 10.135 7.74099 9.958C7.89899 9.801 8.09299 9.549 8.26999 9.342C8.44699 9.135 8.50599 8.987 8.62399 8.751C8.74199 8.515 8.68299 8.308 8.59499 8.131C8.50699 7.954 7.82999 6.271 7.53399 5.566C7.24699 4.883 6.95499 4.979 6.76299 4.979C6.58499 4.979 6.37799 4.969 6.17099 4.969C5.96399 4.969 5.62299 5.048 5.33599 5.364C5.04899 5.68 4.23199 6.448 4.23199 8.013C4.23199 9.578 5.36499 11.085 5.52299 11.292C5.68099 11.499 7.69799 14.736 10.869 16.059C13.366 17.103 13.926 16.969 14.573 16.909C15.289 16.843 16.747 16.088 17.05 15.235C17.353 14.382 17.353 13.676 17.265 13.529C17.177 13.382 16.941 13.323 16.587 13.146H17.472V14.382Z"/>
-        </svg>
-    </a>
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/525577448384" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382C17.119 14.205 15.396 13.353 15.074 13.235C14.752 13.117 14.516 13.058 14.279 13.412C14.043 13.766 13.366 14.561 13.16 14.797C12.953 15.033 12.746 15.063 12.392 14.886C12.038 14.709 10.909 14.337 9.56599 13.139C8.50499 12.193 7.79199 11.028 7.58499 10.674C7.37799 10.32 7.56399 10.135 7.74099 9.958C7.89899 9.801 8.09299 9.549 8.26999 9.342C8.44699 9.135 8.50599 8.987 8.62399 8.751C8.74199 8.515 8.68299 8.308 8.59499 8.131C8.50699 7.954 7.82999 6.271 7.53399 5.566C7.24699 4.883 6.95499 4.979 6.76299 4.979C6.58499 4.979 6.37799 4.969 6.17099 4.969C5.96399 4.969 5.62299 5.048 5.33599 5.364C5.04899 5.68 4.23199 6.448 4.23199 8.013C4.23199 9.578 5.36499 11.085 5.52299 11.292C5.68099 11.499 7.69799 14.736 10.869 16.059C13.366 17.103 13.926 16.969 14.573 16.909C15.289 16.843 16.747 16.088 17.05 15.235C17.353 14.382 17.353 13.676 17.265 13.529C17.177 13.382 16.941 13.323 16.587 13.146H17.472V14.382Z"/>
+    </svg>
+</a>
 
-    <script>
-        // Tab Logic
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            
-            // Hide all tab content
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-            
-            // Remove active class from buttons
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            
-            // Show current tab and add active class
-            document.getElementById(tabName).style.display = "grid";
-            // Small timeout to allow display:grid to apply before adding opacity class for animation
-            setTimeout(() => {
-                document.getElementById(tabName).classList.add("active");
-            }, 10);
-            
-            evt.currentTarget.className += " active";
+<script>
+// ===== TABS LOGIC =====
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
+    }
+    
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    
+    document.getElementById(tabName).style.display = "grid";
+    setTimeout(() => {
+        document.getElementById(tabName).classList.add("active");
+    }, 10);
+    
+    evt.currentTarget.className += " active";
+}
+
+// ===== MOBILE MENU FIX =====
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+let isMobileMenuOpen = false;
+
+function closeMobileMenu() {
+    if (window.innerWidth <= 768 && isMobileMenuOpen) {
+        navLinks.style.display = '';
+        navLinks.style.flexDirection = '';
+        navLinks.style.position = '';
+        navLinks.style.backgroundColor = '';
+        navLinks.style.padding = '';
+        navLinks.style.boxShadow = '';
+        navLinks.style.zIndex = '';
+        isMobileMenuOpen = false;
+    }
+}
+
+if (mobileBtn) {
+    mobileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isMobileMenuOpen = !isMobileMenuOpen;
+        
+        if (isMobileMenuOpen) {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '80px';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.backgroundColor = 'var(--white)';
+            navLinks.style.padding = '2rem';
+            navLinks.style.boxShadow = 'var(--shadow-lg)';
+            navLinks.style.zIndex = '999';
+        } else {
+            closeMobileMenu();
         }
+    });
+}
 
-        // Mobile Menu Toggle (Simple implementation)
-        const mobileBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+// Cerrar menú al hacer click en enlaces
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
 
-        mobileBtn.addEventListener('click', () => {
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
-            } else {
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '80px';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.backgroundColor = 'white';
-                navLinks.style.padding = '2rem';
-                navLinks.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+// Cerrar menú al hacer click fuera
+document.addEventListener('click', (e) => {
+    if (isMobileMenuOpen && !e.target.closest('.nav-container')) {
+        closeMobileMenu();
+    }
+});
+
+// Manejar resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        navLinks.style.display = '';
+        navLinks.style.flexDirection = '';
+        navLinks.style.position = '';
+        isMobileMenuOpen = false;
+    }
+});
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeMobileMenu();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// ===== NETWORK ANIMATION =====
+const initNetworkAnimation = () => {
+    const canvas = document.getElementById('network-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationFrame;
+    
+    const config = {
+        particleCount: window.innerWidth < 768 ? 40 : 70,
+        particleRadius: 1.5,
+        connectionDistance: 150,
+        mouseDistance: 200,
+        particleSpeed: 0.3,
+        lineOpacity: 0.15,
+        particleColor: 'rgba(126, 179, 255, 0.6)',
+        lineColor: 'rgba(126, 179, 255,'
+    };
+    
+    let mouse = { x: null, y: null };
+    
+    const resize = () => {
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            canvas.width = window.innerWidth;
+            canvas.height = hero.offsetHeight;
+            initParticles();
+        }
+    };
+    
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * config.particleSpeed;
+            this.vy = (Math.random() - 0.5) * config.particleSpeed;
+            this.radius = config.particleRadius + Math.random() * 0.5;
+        }
+        
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            
+            if (mouse.x) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < config.mouseDistance) {
+                    const force = (config.mouseDistance - distance) / config.mouseDistance;
+                    this.vx -= dx * force * 0.002;
+                    this.vy -= dy * force * 0.002;
+                }
             }
-        });
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = config.particleColor;
+            ctx.fill();
+        }
+    }
+    
+    const initParticles = () => {
+        particles = [];
+        for (let i = 0; i < config.particleCount; i++) {
+            particles.push(new Particle());
+        }
+    };
+    
+    const connectParticles = () => {
+        for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+                const dx = particles[a].x - particles[b].x;
+                const dy = particles[a].y - particles[b].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < config.connectionDistance) {
+                    const opacity = 1 - (distance / config.connectionDistance);
+                    ctx.strokeStyle = config.lineColor + opacity * config.lineOpacity + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    };
+    
+    const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        connectParticles();
+        animationFrame = requestAnimationFrame(animate);
+    };
+    
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+    
+    resize();
+    animate();
+    
+    return () => {
+        cancelAnimationFrame(animationFrame);
+        window.removeEventListener('resize', resize);
+    };
+};
 
-        // Smooth Scroll for Anchor Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                navLinks.style.display = 'none'; // Close mobile menu on click
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNetworkAnimation);
+} else {
+    initNetworkAnimation();
+}
+</script>
 </body>
 </html>
-
